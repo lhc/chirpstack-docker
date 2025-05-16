@@ -13,6 +13,9 @@ services:
       - MQTT_BROKER_HOST=mosquitto
       - REDIS_HOST=redis
       - POSTGRESQL_HOST=postgres
+      - BROKER_HOST=${SERVER_BROKER_HOST}
+      - BROKER_USER=${SERVER_BROKER_USER}
+      - BROKER_PASS=${SERVER_BROKER_PASS}
     ports:
       - "8080:8080"
 
