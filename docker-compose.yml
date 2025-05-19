@@ -79,6 +79,20 @@ services:
     volumes: 
       - ./configuration/mosquitto/config/:/mosquitto/config/
 
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    restart: unless-stopped
+    volumes:
+      - ./configuration/rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
+      - ./configuration/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+    ports:
+      - "5672:5672"   # AMQP
+      - "15672:15672" # Management UI
+      - "8883:8883"   # MQTT
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_ADMIN_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_ADMIN_PASSWORD}
+
 volumes:
   postgresqldata:
   redisdata:
