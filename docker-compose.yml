@@ -16,6 +16,7 @@ services:
       - BROKER_HOST=${SERVER_BROKER_HOST}
       - BROKER_USER=${SERVER_BROKER_USER}
       - BROKER_PASS=${SERVER_BROKER_PASS}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
     ports:
       - "8080:8080"
 
@@ -87,6 +88,7 @@ services:
       - ./configuration/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     ports:
       - "5672:5672"   # AMQP
+      - "5671:5671"   # AMQP over TLS
       - "15672:15672" # Management UI
       - "8883:8883"   # MQTT
     environment:
