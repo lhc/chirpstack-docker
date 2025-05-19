@@ -32,7 +32,6 @@
   # pool (0 = equal to max_open_connections).
   min_idle_connections=0
 
-  automigrate=true
 
 # Redis configuration.
 [redis]
@@ -99,64 +98,64 @@
 
 
 [integration]
-enabled=["mqtt"]
+  enabled=["mqtt"]
 
-[integration.mqtt]
+  [integration.mqtt]
 
-  # Event topic template.
-  event_topic_template="application/{{ .ApplicationID }}/device/{{ .DevEUI }}/event/{{ .EventType }}"
-  
-  # Command topic template.
-  command_topic_template="application/{{ .ApplicationID }}/device/{{ .DevEUI }}/command/{{ .CommandType }}"
+    # Event topic template.
+    event_topic_template="application/{{ .ApplicationID }}/device/{{ .DevEUI }}/event/{{ .EventType }}"
+    
+    # Command topic template.
+    command_topic_template="application/{{ .ApplicationID }}/device/{{ .DevEUI }}/command/{{ .CommandType }}"
 
 
-  # Use JSON encoding instead of Protobuf (binary).
-  server="$BROKER_HOST"
-  json=true
+    # Use JSON encoding instead of Protobuf (binary).
+    server="$BROKER_HOST"
+    json=true
 
-  # Connect with the given username (optional)
-  username="$BROKER_USER"
+    # Connect with the given username (optional)
+    username="$BROKER_USER"
 
-  # Connect with the given password (optional)
-  password="$BROKER_PASS"
-  
-      # Maximum interval that will be waited between reconnection attempts when connection is lost.
-  # Valid units are 'ms', 's', 'm', 'h'. Note that these values can be combined, e.g. '24h30m15s'.
-  max_reconnect_interval="1m0s"
+    # Connect with the given password (optional)
+    password="$BROKER_PASS"
+    
+        # Maximum interval that will be waited between reconnection attempts when connection is lost.
+    # Valid units are 'ms', 's', 'm', 'h'. Note that these values can be combined, e.g. '24h30m15s'.
+    max_reconnect_interval="1m0s"
 
-  # Quality of service level
-  #
-  # 0: at most once
-  # 1: at least once
-  # 2: exactly once
-  #
-  # Note: an increase of this value will decrease the performance.
-  # For more information: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels
-  qos=0
+    # Quality of service level
+    #
+    # 0: at most once
+    # 1: at least once
+    # 2: exactly once
+    #
+    # Note: an increase of this value will decrease the performance.
+    # For more information: https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels
+    qos=0
 
-  # Clean session
-  #
-  # Set the "clean session" flag in the connect message when this client
-  # connects to an MQTT broker. By setting this flag you are indicating
-  # that no messages saved by the broker for this client should be delivered.
-  clean_session=true
+    # Clean session
+    #
+    # Set the "clean session" flag in the connect message when this client
+    # connects to an MQTT broker. By setting this flag you are indicating
+    # that no messages saved by the broker for this client should be delivered.
+    clean_session=true
 
-  # Client ID
-  #
-  # Set the client id to be used by this client when connecting to the MQTT
-  # broker. A client id must be no longer than 23 characters. When left blank,
-  # a random id will be generated. This requires clean_session=true.
-  client_id=""
+    # Client ID
+    #
+    # Set the client id to be used by this client when connecting to the MQTT
+    # broker. A client id must be no longer than 23 characters. When left blank,
+    # a random id will be generated. This requires clean_session=true.
+    client_id=""
 
-  # CA certificate file (optional)
-  #
-  # Use this when setting up a secure connection (when server uses ssl://...)
-  # but the certificate used by the server is not trusted by any CA certificate
-  # on the server (e.g. when self generated).
-  ca_cert=""
+    # CA certificate file (optional)
+    #
+    # Use this when setting up a secure connection (when server uses ssl://...)
+    # but the certificate used by the server is not trusted by any CA certificate
+    # on the server (e.g. when self generated).
+    ca_cert=""
 
-  # TLS certificate file (optional)
-  tls_cert=""
+    # TLS certificate file (optional)
+    tls_cert=""
 
-  # TLS key file (optional)
-  tls_key=""
+    # TLS key file (optional)
+    tls_key=""
