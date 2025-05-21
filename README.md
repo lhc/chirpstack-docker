@@ -1,7 +1,17 @@
-# ChirpStack Docker example
+# ChirpStack Docker Environment for LHC Hackerspace
 
-This repository contains a skeleton to setup the [ChirpStack](https://www.chirpstack.io)
-open-source LoRaWAN Network Server (v4) using [Docker Compose](https://docs.docker.com/compose/).
+This repository contains the LoRaWAN infrastructure setup used at LHC (Laboratório Hacker de Campinas), a hackerspace in Campinas, Brazil. It provides a complete IoT development environment using [ChirpStack](https://www.chirpstack.io) as the LoRaWAN Network Server (v4) and [Docker Compose](https://docs.docker.com/compose/) for easy deployment.
+
+This setup is specifically designed for IoT development and experimentation at LHC, providing:
+* A complete LoRaWAN network server
+* MQTT broker for device communication
+* RabbitMQ for message queuing
+* PostgreSQL for data persistence
+* REST API for integration
+
+The deployment of this environment is automated using Ansible scripts, which can be found in our [Ansible Scripts repository](https://github.com/lhc/Ansilbe_Scripts/tree/master/Chirpstack). These scripts handle the server setup, environment variables configuration, and service deployment.
+
+**Note:** While this setup is optimized for LHC's IoT development needs, it can be used as a starting point for other LoRaWAN deployments. For production usage, additional security and performance considerations might be needed.
 
 **Note:** Please use this `docker-compose.yml` file as a starting point for testing
 but keep in mind that for production usage it might need modifications. 
@@ -13,6 +23,7 @@ but keep in mind that for production usage it might need modifications.
 * `configuration/chirpstack-gateway-bridge`: directory containing the ChirpStack Gateway Bridge configuration
 * `configuration/mosquitto`: directory containing the Mosquitto (MQTT broker) configuration
 * `configuration/postgresql/initdb/`: directory containing PostgreSQL initialization scripts
+* `configuration/rabbitmq`: directory containing RabbitMQ configuration files
 
 ## Configuration
 
@@ -30,6 +41,17 @@ is configured to handle the Semtech UDP Packet Forwarder data (port 1700), the
 other is configured to handle the Basics Station protocol (port 3001). Both
 instances are by default configured for EU868 (using the `eu868` MQTT topic
 prefix).
+
+### Environment Variables
+
+The following environment variables can be configured:
+
+* `LOG_LEVEL`: ChirpStack log level (default: "info", options: "trace", "debug", "info", "warn", "error")
+* `RABBITMQ_ADMIN_USER`: RabbitMQ admin username
+* `RABBITMQ_ADMIN_PASSWORD`: RabbitMQ admin password
+* `SERVER_BROKER_HOST`: MQTT broker host
+* `SERVER_BROKER_USER`: MQTT broker username
+* `SERVER_BROKER_PASS`: MQTT broker password
 
 ### Reconfigure regions
 
@@ -90,10 +112,9 @@ $ docker-compose up
 After all the components have been initialized and started, you should be able
 to open http://localhost:8080/ in your browser.
 
-##
-
-The example includes the [ChirpStack REST API](https://github.com/chirpstack/chirpstack-rest-api).
-You should be able to access the UI by opening http://localhost:8090 in your browser.
+The example includes:
+* [ChirpStack REST API](https://github.com/chirpstack/chirpstack-rest-api) at http://localhost:8090
+* RabbitMQ Management Interface at http://localhost:15672
 
 **Note:** It is recommended to use the [gRPC](https://www.chirpstack.io/docs/chirpstack/api/grpc.html)
 interface over the [REST](https://www.chirpstack.io/docs/chirpstack/api/rest.html) interface.
